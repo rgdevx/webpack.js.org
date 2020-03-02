@@ -26,13 +26,23 @@ new webpack.IgnorePlugin(resourceRegExp, [contextRegExp]);
 - `checkResource (resource, context)` A Filter function that receives `resource` and `context` as arguments, must return boolean.
 - `checkContext (context)` was __removed in webpack 5__ as `checkResource` already gets context.
 
+In `webpack.config.js`:
+
 ```javascript
-new webpack.IgnorePlugin({
-  checkResource (resource) {
-    // do something with resource
-    return true|false;
-  }
-});
+var webpack = require('webpack');
+module.exports = {
+  // ...
+  plugins: [
+    new webpack.IgnorePlugin({
+      checkResource (resource, context) {
+        // do something with resource
+        // ...
+        // return true to ignore the plugin, false to include it
+        return true|false;
+      }
+    })
+  ]
+}
 ```
 
 ## Example of ignoring Moment Locales
